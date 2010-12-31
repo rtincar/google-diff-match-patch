@@ -30,6 +30,7 @@ class diff_match_patch_test {
   //  DIFF TEST FUNCTIONS
   void testDiffCommonPrefix();
   void testDiffCommonSuffix();
+  void testDiffCommonOverlap();
   void testDiffHalfmatch();
   void testDiffLinesToChars();
   void testDiffCharsToLines();
@@ -41,7 +42,8 @@ class diff_match_patch_test {
   void testDiffText();
   void testDiffDelta();
   void testDiffXIndex();
-  void testDiffPath();
+  void testDiffLevenshtein();
+  void testDiffBisect();
   void testDiffMain();
 
   //  MATCH TEST FUNCTIONS
@@ -73,18 +75,18 @@ class diff_match_patch_test {
   void assertEquals(const QString &strCase, const QStringList &list1, const QStringList &list2);
   void assertTrue(const QString &strCase, bool value);
   void assertFalse(const QString &strCase, bool value);
-  void assertNull(const QString &strCase, const QStringList &list);
-  void assertNull(const QString &strCase, const QList<Diff> &list);
+  void assertEmpty(const QString &strCase, const QStringList &list);
 
   // Construct the two texts which made up the diff originally.
   QStringList diff_rebuildtexts(QList<Diff> diffs);
   // Private function for quickly building lists of diffs.
   QList<Diff> diffList(
-      Diff d1 = Diff(EQUAL, NULL), Diff d2 = Diff(EQUAL, NULL),
-      Diff d3 = Diff(EQUAL, NULL), Diff d4 = Diff(EQUAL, NULL),
-      Diff d5 = Diff(EQUAL, NULL), Diff d6 = Diff(EQUAL, NULL),
-      Diff d7 = Diff(EQUAL, NULL), Diff d8 = Diff(EQUAL, NULL),
-      Diff d9 = Diff(EQUAL, NULL), Diff d10 = Diff(EQUAL, NULL));
+      // Diff(INSERT, NULL) is invalid and thus is used as the default argument.
+      Diff d1 = Diff(INSERT, NULL), Diff d2 = Diff(INSERT, NULL),
+      Diff d3 = Diff(INSERT, NULL), Diff d4 = Diff(INSERT, NULL),
+      Diff d5 = Diff(INSERT, NULL), Diff d6 = Diff(INSERT, NULL),
+      Diff d7 = Diff(INSERT, NULL), Diff d8 = Diff(INSERT, NULL),
+      Diff d9 = Diff(INSERT, NULL), Diff d10 = Diff(INSERT, NULL));
 };
 
 #endif // DIFF_MATCH_PATCH_TEST_H
